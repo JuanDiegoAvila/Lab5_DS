@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>lab5</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="Lab5_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Lab5_files/libs/quarto-html/quarto.js"></script>
+<script src="Lab5_files/libs/quarto-html/popper.min.js"></script>
+<script src="Lab5_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Lab5_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Lab5_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Lab5_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Lab5_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Lab5_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Lab5_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="laboratorio-5---análisis-de-sentimientos" class="level1">
+<h1>Laboratorio 5 - Análisis de sentimientos</h1>
+<section id="descripción-de-los-datos" class="level2">
+<h2 class="anchored" data-anchor-id="descripción-de-los-datos">Descripción de los datos</h2>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'./data/train.csv'</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data.head())</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data.describe())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   id keyword location                                               text  \
+0   1     NaN      NaN  Our Deeds are the Reason of this #earthquake M...   
+1   4     NaN      NaN             Forest fire near La Ronge Sask. Canada   
+2   5     NaN      NaN  All residents asked to 'shelter in place' are ...   
+3   6     NaN      NaN  13,000 people receive #wildfires evacuation or...   
+4   7     NaN      NaN  Just got sent this photo from Ruby #Alaska as ...   
+
+   target  
+0       1  
+1       1  
+2       1  
+3       1  
+4       1  
+                 id      target
+count   7613.000000  7613.00000
+mean    5441.934848     0.42966
+std     3137.116090     0.49506
+min        1.000000     0.00000
+25%     2734.000000     0.00000
+50%     5408.000000     0.00000
+75%     8146.000000     1.00000
+max    10873.000000     1.00000</code></pre>
+</div>
+</div>
+<p>Este dataset que contienen información relacionada con tweets de Twitter que indican desastres naturales.</p>
+<p>El dataset contiene 5 columnas:</p>
+<p>id: Un identificador único asignado a cada entrada en los datos. Son valores numéricos.</p>
+<p>keyword: Una columna que contiene palabras clave o términos relacionados con el evento o la situación. En la muestra proporcionada, esta columna está en blanco (NaN), pero en un conjunto completo de datos, podría contener información valiosa sobre el tema del evento.</p>
+<p>location: Otra columna que indica la ubicación relacionada con el evento. Similar a la columna de palabras clave, esta columna también está en blanco (NaN) en la muestra dada, pero podría contener información sobre dónde tuvo lugar el evento.</p>
+<p>text: Una columna que contiene texto descriptivo asociado al evento. Es una descripción narrativa de lo que está sucediendo en el evento en cuestión. Los ejemplos proporcionados muestran que esta columna contiene información sobre incendios forestales, evacuaciones y terremotos.</p>
+<p>target: Esta columna indica un valor binario (0 o 1). Un valor de 1 indica que si fue un desastre natural, mientras que un valor de 0 indicar que no lo fue.</p>
+</section>
+<section id="limpieza-y-procesamiento-de-datos" class="level2">
+<h2 class="anchored" data-anchor-id="limpieza-y-procesamiento-de-datos">Limpieza y procesamiento de datos</h2>
+<p>Realizaremos la limpieza de datos y el procesamiento de texto para que los datos estén listos para el modelado. En este caso, el procesamiento de texto incluye la tokenización, la eliminación de palabras vacías y la lematización.</p>
+<p>Convertir el texto a mayúsculas o minúsculas:</p>
+<p>Propósito: Uniformizar el texto en un solo formato (mayúsculas o minúsculas) para reducir la variabilidad y facilitar comparaciones y búsquedas. Quitar caracteres especiales como “#”, “@”, apóstrofes, etc.:</p>
+<p>Propósito: Eliminar caracteres que no aportan información relevante para la mayoría de las tareas de procesamiento de texto y que podrían interferir con el análisis posterior. Quitar las URLs:</p>
+<p>Propósito: Eliminar enlaces a sitios web, ya que generalmente no aportan información semántica al análisis y pueden ser tratados como ruido. Revisar y quitar emoticones:</p>
+<p>Propósito: Los emoticones a menudo son símbolos que representan emociones o sentimientos, pero pueden ser difíciles de interpretar automáticamente. Si no son relevantes para la tarea, se pueden eliminar para reducir el ruido. Quitar los signos de puntuación:</p>
+<p>Propósito: Los signos de puntuación como comas, puntos, etc., generalmente no contribuyen directamente al análisis de texto y se eliminan para simplificar el texto y reducir la dimensionalidad. Quitar artículos, preposiciones y conjunciones (stopwords):</p>
+<p>Propósito: Las stopwords son palabras comunes que suelen tener poco valor semántico en el análisis de texto (por ejemplo, “el”, “de”, “y”). Eliminarlas puede ayudar a reducir la dimensionalidad y centrarse en las palabras clave más significativas. Quitar números:</p>
+<p>Propósito: En algunas tareas, los números pueden no ser relevantes y, en lugar de aportar información, podrían generar ruido. Sin embargo, es importante tener en cuenta si los números son importantes para la tarea específica antes de eliminarlos, como en el ejemplo del “911”.</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> string</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nltk</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.tokenize <span class="im">import</span> word_tokenize</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> remove_urls(text):</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Eliminar URLs que comienzan con http o https</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    text <span class="op">=</span> re.sub(<span class="vs">r'http\S+'</span>, <span class="st">''</span>, text)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Eliminar URLs que comienzan con www</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    text <span class="op">=</span> re.sub(<span class="vs">r'www\S+'</span>, <span class="st">''</span>, text)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> text</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplicar la función a la columna 'text' del DataFrame</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'text'</span>] <span class="op">=</span> data[<span class="st">'text'</span>].<span class="bu">apply</span>(remove_urls)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Quitar caracteres especiales: "#, @"</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(data)):</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    data.loc[i, <span class="st">'text'</span>] <span class="op">=</span> data.loc[i, <span class="st">'text'</span>].replace(<span class="st">'#'</span>, <span class="st">''</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    data.loc[i, <span class="st">'text'</span>] <span class="op">=</span> data.loc[i, <span class="st">'text'</span>].replace(<span class="st">'@'</span>, <span class="st">''</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Quitar los signos de puntuacion</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(data)):</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    data.loc[i, <span class="st">'text'</span>] <span class="op">=</span> data.loc[i, <span class="st">'text'</span>].translate(<span class="bu">str</span>.maketrans(<span class="st">''</span>, <span class="st">''</span>, string.punctuation))</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> remove_emojis(text):</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    emoji_pattern <span class="op">=</span> re.<span class="bu">compile</span>(</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>        <span class="st">"["</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>        <span class="st">"</span><span class="ch">\U0001F600</span><span class="st">-</span><span class="ch">\U0001F64F</span><span class="st">"</span>  <span class="co"># emoticons</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        <span class="st">"</span><span class="ch">\U0001F300</span><span class="st">-</span><span class="ch">\U0001F5FF</span><span class="st">"</span>  <span class="co"># symbols &amp; pictographs</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>        <span class="st">"</span><span class="ch">\U0001F680</span><span class="st">-</span><span class="ch">\U0001F6FF</span><span class="st">"</span>  <span class="co"># transport &amp; map symbols</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">"</span><span class="ch">\U0001F700</span><span class="st">-</span><span class="ch">\U0001F77F</span><span class="st">"</span>  <span class="co"># alchemical symbols</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">"</span><span class="ch">\U0001F780</span><span class="st">-</span><span class="ch">\U0001F7FF</span><span class="st">"</span>  <span class="co"># Geometric Shapes Extended</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"</span><span class="ch">\U0001F800</span><span class="st">-</span><span class="ch">\U0001F8FF</span><span class="st">"</span>  <span class="co"># Supplemental Arrows-C</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">"</span><span class="ch">\U0001F900</span><span class="st">-</span><span class="ch">\U0001F9FF</span><span class="st">"</span>  <span class="co"># Supplemental Symbols and Pictographs</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>        <span class="st">"</span><span class="ch">\U0001FA00</span><span class="st">-</span><span class="ch">\U0001FA6F</span><span class="st">"</span>  <span class="co"># Chess Symbols</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"</span><span class="ch">\U0001FA70</span><span class="st">-</span><span class="ch">\U0001FAFF</span><span class="st">"</span>  <span class="co"># Symbols and Pictographs Extended-A</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"</span><span class="ch">\U00002702</span><span class="st">-</span><span class="ch">\U000027B0</span><span class="st">"</span>  <span class="co"># Dingbats</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"</span><span class="ch">\U000024C2</span><span class="st">-</span><span class="ch">\U0001F251</span><span class="st">"</span>  </span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>        <span class="st">"]+"</span>,</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>        flags<span class="op">=</span>re.UNICODE,</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> emoji_pattern.sub(<span class="vs">r""</span>, text)</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Quitar emojis si hubiese usando remove_emojis</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(data)):</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    data.loc[i, <span class="st">'text'</span>] <span class="op">=</span> remove_emojis(data.loc[i, <span class="st">'text'</span>])</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Quitar los artículos, preposiciones y conjunciones (stopwords)</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>nltk.download(<span class="st">'stopwords'</span>)</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>stop <span class="op">=</span> stopwords.words(<span class="st">'english'</span>)</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(data)):</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>    data.loc[i, <span class="st">'text'</span>] <span class="op">=</span> <span class="st">' '</span>.join([word <span class="cf">for</span> word <span class="kw">in</span> data.loc[i, <span class="st">'text'</span>].split() <span class="cf">if</span> word <span class="kw">not</span> <span class="kw">in</span> (stop)])</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertir texto a mayusculas</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(data)):</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>    data.loc[i, <span class="st">'text'</span>] <span class="op">=</span> data.loc[i, <span class="st">'text'</span>].upper()</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="co"># # Tokenizar el texto</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="co"># nltk.download('punkt')</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="co"># data['text'] = data['text'].apply(word_tokenize)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[nltk_data] Downloading package stopwords to
+[nltk_data]     C:\Users\Juan_Avila\AppData\Roaming\nltk_data...
+[nltk_data]   Package stopwords is already up-to-date!</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   id keyword location                                               text  \
+0   1     NaN      NaN   OUR DEEDS REASON EARTHQUAKE MAY ALLAH FORGIVE US   
+1   4     NaN      NaN              FOREST FIRE NEAR LA RONGE SASK CANADA   
+2   5     NaN      NaN  ALL RESIDENTS ASKED SHELTER PLACE NOTIFIED OFF...   
+3   6     NaN      NaN  13000 PEOPLE RECEIVE WILDFIRES EVACUATION ORDE...   
+4   7     NaN      NaN  JUST GOT SENT PHOTO RUBY ALASKA SMOKE WILDFIRE...   
+
+   target  
+0       1  
+1       1  
+2       1  
+3       1  
+4       1  </code></pre>
+</div>
+</div>
+</section>
+<section id="frecuencia-de-palabras" class="level2">
+<h2 class="anchored" data-anchor-id="frecuencia-de-palabras">Frecuencia de palabras</h2>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>disaster_tweets <span class="op">=</span> data[data[<span class="st">'target'</span>] <span class="op">==</span> <span class="dv">1</span>][<span class="st">'text'</span>].<span class="bu">str</span>.cat(sep<span class="op">=</span><span class="st">' '</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>non_disaster_tweets <span class="op">=</span> data[data[<span class="st">'target'</span>] <span class="op">==</span> <span class="dv">0</span>][<span class="st">'text'</span>].<span class="bu">str</span>.cat(sep<span class="op">=</span><span class="st">' '</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.tokenize <span class="im">import</span> word_tokenize</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.probability <span class="im">import</span> FreqDist</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nltk</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>nltk.download(<span class="st">'stopwords'</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>stop_words <span class="op">=</span> <span class="bu">set</span>(stopwords.words(<span class="st">'english'</span>))</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Tokenizar y filtrar stopwords</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>disaster_tokens <span class="op">=</span> [word <span class="cf">for</span> word <span class="kw">in</span> word_tokenize(disaster_tweets, language<span class="op">=</span><span class="st">'english'</span>) <span class="cf">if</span> word.lower() <span class="kw">not</span> <span class="kw">in</span> stop_words]</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>non_disaster_tokens <span class="op">=</span> [word <span class="cf">for</span> word <span class="kw">in</span> word_tokenize(non_disaster_tweets, language<span class="op">=</span><span class="st">'english'</span>) <span class="cf">if</span> word.lower() <span class="kw">not</span> <span class="kw">in</span> stop_words]</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtener frecuencias</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>disaster_freq <span class="op">=</span> FreqDist(disaster_tokens)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>non_disaster_freq <span class="op">=</span> FreqDist(non_disaster_tokens)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Frecuencia de palabras en tweets de desastres:"</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(disaster_freq.most_common(<span class="dv">10</span>))</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Frecuencia de palabras en tweets no desastres:"</span>)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(non_disaster_freq.most_common(<span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[nltk_data] Downloading package stopwords to
+[nltk_data]     C:\Users\Juan_Avila\AppData\Roaming\nltk_data...
+[nltk_data]   Package stopwords is already up-to-date!</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Frecuencia de palabras en tweets de desastres:
+[('FIRE', 178), ('NEWS', 136), ('VIA', 121), ('DISASTER', 117), ('CALIFORNIA', 111), ('SUICIDE', 110), ('POLICE', 107), ('AMP', 106), ('PEOPLE', 105), ('KILLED', 93)]
+Frecuencia de palabras en tweets no desastres:
+[('LIKE', 253), ('IM', 243), ('AMP', 192), ('NEW', 168), ('GET', 163), ('DONT', 141), ('ONE', 128), ('BODY', 112), ('VIA', 99), ('WOULD', 97)]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> wordcloud <span class="im">import</span> WordCloud</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_wordcloud(text, title):</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    wordcloud <span class="op">=</span> WordCloud(max_font_size<span class="op">=</span><span class="dv">70</span>, max_words<span class="op">=</span><span class="dv">100</span>, background_color<span class="op">=</span><span class="st">"white"</span>).generate(text)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    plt.imshow(wordcloud, interpolation<span class="op">=</span><span class="st">"bilinear"</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    plt.axis(<span class="st">'off'</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    plt.title(title)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear nubes de palabras para tweets de desastre y no desastre</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>plot_wordcloud(disaster_tweets, <span class="st">'Palabras más frecuentes en tweets de desastre'</span>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>plot_wordcloud(non_disaster_tweets, <span class="st">'Palabras más frecuentes en tweets que no son de desastre'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="Lab5_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Lab5_files/figure-html/cell-6-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.util <span class="im">import</span> bigrams, trigrams</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>disaster_bigrams <span class="op">=</span> <span class="bu">list</span>(bigrams(disaster_tokens))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>disaster_trigrams <span class="op">=</span> <span class="bu">list</span>(trigrams(disaster_tokens))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>non_disaster_bigrams <span class="op">=</span> <span class="bu">list</span>(bigrams(non_disaster_tokens))</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>non_disaster_trigrams <span class="op">=</span> <span class="bu">list</span>(trigrams(non_disaster_tokens))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>disaster_bigram_freq <span class="op">=</span> FreqDist(disaster_bigrams)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>non_disaster_bigram_freq <span class="op">=</span> FreqDist(non_disaster_bigrams)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>disaster_trigram_freq <span class="op">=</span> FreqDist(disaster_trigrams)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>non_disaster_trigram_freq <span class="op">=</span> FreqDist(non_disaster_trigrams)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_most_common_bigrams(freq_dist, title):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    bigrams, frequencies <span class="op">=</span> <span class="bu">zip</span>(<span class="op">*</span>freq_dist.most_common(<span class="dv">10</span>))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    bigrams_str <span class="op">=</span> [<span class="st">' '</span>.join(bigram) <span class="cf">for</span> bigram <span class="kw">in</span> bigrams]  <span class="co"># Convertir bigramas a cadenas para la visualización</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">5</span>))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    plt.bar(bigrams_str, frequencies)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    plt.title(title)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>plot_most_common_bigrams(disaster_bigram_freq, <span class="st">'Bigramas más comunes en tweets de desastre'</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>plot_most_common_bigrams(non_disaster_bigram_freq, <span class="st">'Bigramas más comunes en tweets que no son de desastre'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="Lab5_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>c:\Users\Juan_Avila\AppData\Local\Programs\Python\Python310\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 137 (\x89) missing from current font.
+  fig.canvas.print_figure(bytes_io, **kw)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Lab5_files/figure-html/cell-8-output-3.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_most_common_trigrams(freq_dist, title):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    trigrams, frequencies <span class="op">=</span> <span class="bu">zip</span>(<span class="op">*</span>freq_dist.most_common(<span class="dv">10</span>))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    trigrams_str <span class="op">=</span> [<span class="st">' '</span>.join(trigram) <span class="cf">for</span> trigram <span class="kw">in</span> trigrams]  <span class="co"># Convertir trigramas a cadenas para la visualización</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">5</span>))</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    plt.bar(trigrams_str, frequencies)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    plt.title(title)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>plot_most_common_trigrams(disaster_trigram_freq, <span class="st">'Trigramas más comunes en tweets de desastre'</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>plot_most_common_trigrams(non_disaster_trigram_freq, <span class="st">'Trigramas más comunes en tweets que no son de desastre'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="Lab5_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Lab5_files/figure-html/cell-9-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_most_common(freq_dist, title):</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    words, frequencies <span class="op">=</span> <span class="bu">zip</span>(<span class="op">*</span>freq_dist.most_common(<span class="dv">10</span>))</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">5</span>))</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    plt.bar(words, frequencies)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    plt.title(title)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>plot_most_common(disaster_freq, <span class="st">'Palabras más comunes en tweets de desastre'</span>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>plot_most_common(non_disaster_freq, <span class="st">'Palabras más comunes en tweets que no son de desastre'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="Lab5_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="Lab5_files/figure-html/cell-10-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Como se puede observar en los histogramas de los digramas sí puede ayudar bastante ya que estos nos pueden indicar cuales son las palabras que más se repiten en los tweets que hablan de desastres naturales y cuales son las que más se repiten en los tweets que no hablan de desastres naturales.</p>
+<p>Ademas de eso puede hacer una mejor ayuda para la clasificación de los tweets ya que se puede observar que en los tweets que hablan de desastres naturales se repiten palabras como: fire, california, news, etc. Y en los tweets que no hablan de desastres naturales se repiten palabras como: love, day, time, etc.</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nltk</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.sentiment <span class="im">import</span> SentimentIntensityAnalyzer</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>sia <span class="op">=</span> SentimentIntensityAnalyzer()</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>stop_words <span class="op">=</span> <span class="bu">set</span>(stopwords.words(<span class="st">'english'</span>))</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> tweet <span class="kw">in</span> data[<span class="st">'text'</span>]:</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># tokens = [word for word in word_tokenize(tweet, language='english') if word.lower() not in stop_words]</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    tokens <span class="op">=</span> word_tokenize(tweet, language<span class="op">=</span><span class="st">'english'</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    sentiments <span class="op">=</span> []</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> token <span class="kw">in</span> tokens:       </span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>        sentiment_scores <span class="op">=</span> sia.polarity_scores(token)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>        compound <span class="op">=</span> sentiment_scores[<span class="st">'compound'</span>]</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> compound <span class="op">&gt;=</span> <span class="fl">0.05</span>:</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>            sentiments.append(<span class="st">"positive"</span>)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> compound <span class="op">&lt;=</span> <span class="op">-</span><span class="fl">0.05</span>:</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>            sentiments.append(<span class="st">"negative"</span>)</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>            sentiments.append(<span class="st">"neutral"</span>)</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    positive_count <span class="op">=</span> sentiments.count(<span class="st">"positive"</span>)</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    negative_count <span class="op">=</span> sentiments.count(<span class="st">"negative"</span>)</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>    score <span class="op">=</span> (positive_count <span class="op">-</span> negative_count) <span class="op">/</span> <span class="bu">len</span>(sentiments)</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Asignar el valor de la polaridad al tweet a el DataFrame</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>    data.loc[data[<span class="st">'text'</span>] <span class="op">==</span> tweet, <span class="st">'sentiment'</span>] <span class="op">=</span> score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hacer un histograma de los sentimientos</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'sentiment'</span>].hist(bins<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribución de sentimientos en los tweets'</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="Lab5_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 10 tweets más positivos</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"10 tweets más positivos:"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>positive_tweets <span class="op">=</span> data.sort_values(by<span class="op">=</span>[<span class="st">'sentiment'</span>], ascending<span class="op">=</span><span class="va">False</span>)[[<span class="st">'text'</span>, <span class="st">'sentiment'</span>, <span class="st">'target'</span>]].head(<span class="dv">10</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>positive_tweets[<span class="st">'target'</span>] <span class="op">=</span> positive_tweets[<span class="st">'target'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">'Desastre'</span> <span class="cf">if</span> x <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">'No-desastre'</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(positive_tweets)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 10 tweets más negativos</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"10 tweets más negativos:"</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>negative_tweets <span class="op">=</span> data.sort_values(by<span class="op">=</span>[<span class="st">'sentiment'</span>], ascending<span class="op">=</span><span class="va">True</span>)[[<span class="st">'text'</span>, <span class="st">'sentiment'</span>, <span class="st">'target'</span>]].head(<span class="dv">10</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>negative_tweets[<span class="st">'target'</span>] <span class="op">=</span> negative_tweets[<span class="st">'target'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">'Desastre'</span> <span class="cf">if</span> x <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">'No-desastre'</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(negative_tweets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>10 tweets más positivos:
+                               text  sentiment       target
+2727                       GOOD LOL   1.000000  No-desastre
+6140          SUPER SWEET BEAUTIFUL   1.000000  No-desastre
+4496        GUYREGINALD LOL WELCOME   0.666667  No-desastre
+21                      LONDON COOL   0.500000  No-desastre
+6283                    READY STORM   0.500000     Desastre
+3646    SHARING HELP COUSINS FAMILY   0.500000  No-desastre
+6174                     YAY SIRENS   0.500000  No-desastre
+17                    SUMMER LOVELY   0.500000  No-desastre
+27                  LOVE GIRLFRIEND   0.500000  No-desastre
+6562  SURVIVED SPANISH SWEET RITUAL   0.500000  No-desastre
+10 tweets más negativos:
+                                                   text  sentiment  \
+3688                                           FATALITY       -1.0   
+3717                                         WORST FEAR       -1.0   
+20                                           RIDICULOUS       -1.0   
+481                                      ANXIETY ATTACK       -1.0   
+3696                                           FATALITY       -1.0   
+6015                                            SCREAMS       -1.0   
+7472  WRECK WRECK WRECK WRECK WRECK WRECK WRECK WREC...       -1.0   
+5392                                PANIC ATTACKS WORST       -1.0   
+90                                             ACCIDENT       -1.0   
+5988                                            SCREAMS       -1.0   
+
+           target  
+3688     Desastre  
+3717  No-desastre  
+20    No-desastre  
+481   No-desastre  
+3696  No-desastre  
+6015  No-desastre  
+7472  No-desastre  
+5392  No-desastre  
+90    No-desastre  
+5988  No-desastre  </code></pre>
+</div>
+</div>
+<p>No son mas negativos ya que se encuentra un registro de desastre tanto en positivos como negativos. Esto se puede dar ya que aunque el tweet sea negativo no necesariamente habla de un desastre natural y viceversa.</p>
+</section>
+<section id="modelo-de-clasificación" class="level2">
+<h2 class="anchored" data-anchor-id="modelo-de-clasificación">Modelo de clasificación</h2>
+<div class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_extraction.text <span class="im">import</span> TfidfVectorizer</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.sparse <span class="im">import</span> hstack</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>X_text <span class="op">=</span> data[<span class="st">'text'</span>]</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>X_sentiment <span class="op">=</span> data[<span class="st">'sentiment'</span>].values.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)  <span class="co"># Convertimos a una matriz columna</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> data[<span class="st">'target'</span>]</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>X_train_text, X_test_text, X_train_sentiment, X_test_sentiment, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    X_text, X_sentiment, Y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">456</span>)</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Vectorizar el texto usando TF-IDF</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>tfidf_vectorizer <span class="op">=</span> TfidfVectorizer(max_features<span class="op">=</span><span class="dv">5000</span>)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>X_train_tfidf <span class="op">=</span> tfidf_vectorizer.fit_transform(X_train_text)</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>X_test_tfidf <span class="op">=</span> tfidf_vectorizer.transform(X_test_text)</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Concatenar las características de texto vectorizadas con las características de sentimiento</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>X_train_combined <span class="op">=</span> hstack([X_train_tfidf, X_train_sentiment])</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>X_test_combined <span class="op">=</span> hstack([X_test_tfidf, X_test_sentiment])</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Entrenar un modelo de Regresión Logística</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>clf <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>clf.fit(X_train_combined, y_train)</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluar la precisión del modelo en el conjunto de prueba</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y_test, clf.predict(X_test_combined))</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(accuracy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.8104203152364273</code></pre>
+</div>
+</div>
+<p>Aunque no fue significativa la mejora, si aumento el accuracy del modelo. Esto se puede dar ya que al eliminar las palabras que no aportan información al modelo, se puede dar una mejor clasificación de los tweets.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
